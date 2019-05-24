@@ -323,10 +323,13 @@ class WorkflowManagerActor(params: WorkflowManagerActorParams)
   }
 
   override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
-    case _ =>
+    case exception =>
       // call submitWorkflow to try again with a new Actor, instead of restarting the problematic one?
       // Or just fail the workflow?
 //      throw exception
+      // Don't forget to change this to real WF ID!!!
+      self ! WorkflowFailedResponse(WorkflowId.randomId(), WorkflowActor.WorkflowFailedState, Seq(exception))
+
       Stop
   }
 
