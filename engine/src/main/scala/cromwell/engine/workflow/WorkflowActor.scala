@@ -246,6 +246,7 @@ class WorkflowActor(workflowToStart: WorkflowToStart,
 
   when(WorkflowUnstartedState) {
     case Event(StartWorkflowCommand, _) =>
+//      throw new Exception("asdf")
       val actor = context.actorOf(MaterializeWorkflowDescriptorActor.props(serviceRegistryActor, workflowId, importLocalFilesystem = !serverMode, ioActorProxy = ioActor),
         "MaterializeWorkflowDescriptorActor")
       pushWorkflowStart(workflowId)
@@ -429,9 +430,12 @@ class WorkflowActor(workflowToStart: WorkflowToStart,
           * be copied by accessing the workflow options outside of the EngineWorkflowDescriptor.
           */
         def bruteForceWorkflowOptions: WorkflowOptions = WorkflowOptions.fromJsonString(sources.workflowOptionsJson).getOrElse(WorkflowOptions.fromJsonString("{}").get)
-        val system = context.system
+//        val system = context.system
         val ec = context.system.dispatcher
-        def bruteForcePathBuilders: Future[List[PathBuilder]] = EngineFilesystems.pathBuildersForWorkflow(bruteForceWorkflowOptions)(system)
+        def bruteForcePathBuilders: Future[List[PathBuilder]] = {
+//          EngineFilesystems.pathBuildersForWorkflow(bruteForceWorkflowOptions)(system)
+          Future.failed(new RuntimeException("asdf"))
+        }
 
         val (workflowOptions, pathBuilders) = stateData.workflowDescriptor match {
           case Some(wd) => (wd.backendDescriptor.workflowOptions, Future.successful(wd.pathBuilders))
@@ -448,7 +452,9 @@ class WorkflowActor(workflowToStart: WorkflowToStart,
           case _ =>
         }
       }
-      context stop self
+      throw new RuntimeException("wasd")
+
+//      context stop self
   }
 
   onTransition {

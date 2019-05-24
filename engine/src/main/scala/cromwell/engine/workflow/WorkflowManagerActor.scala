@@ -3,6 +3,8 @@ package cromwell.engine.workflow
 import java.util.concurrent.atomic.AtomicInteger
 
 import akka.actor.FSM.{CurrentState, SubscribeTransitionCallBack, Transition}
+import akka.actor.SupervisorStrategy.Stop
+//import akka.actor.SupervisorStrategy.{Stop}
 import akka.actor._
 import akka.event.Logging
 import cats.data.NonEmptyList
@@ -318,6 +320,14 @@ class WorkflowManagerActor(params: WorkflowManagerActorParams)
 
   private def scheduleNextNewWorkflowPoll() = {
     timers.startSingleTimer(RetrieveNewWorkflowsKey, RetrieveNewWorkflows, newWorkflowPollRate)
+  }
+
+  override def supervisorStrategy: SupervisorStrategy = OneForOneStrategy() {
+    case _ =>
+      // call submitWorkflow to try again with a new Actor, instead of restarting the problematic one?
+      // Or just fail the workflow?
+//      throw exception
+      Stop
   }
 
   private def expandFailureReasons(reasons: Seq[Throwable]): String = {
