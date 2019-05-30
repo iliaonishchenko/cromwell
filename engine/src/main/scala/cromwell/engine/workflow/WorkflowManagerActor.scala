@@ -328,7 +328,10 @@ class WorkflowManagerActor(params: WorkflowManagerActorParams)
       // Or just fail the workflow?
 //      throw exception
       // Don't forget to change this to real WF ID!!!
-      self ! WorkflowFailedResponse(WorkflowId.randomId(), WorkflowActor.WorkflowFailedState, Seq(exception))
+
+      sender ! WorkflowFailedResponse(WorkflowId.randomId(), WorkflowActor.WorkflowFailedState, Seq(exception))
+
+//      self ! WorkflowFailedResponse(WorkflowId.randomId(), WorkflowActor.WorkflowFailedState, Seq(exception))
 
       Stop
   }

@@ -430,11 +430,11 @@ class WorkflowActor(workflowToStart: WorkflowToStart,
           * be copied by accessing the workflow options outside of the EngineWorkflowDescriptor.
           */
         def bruteForceWorkflowOptions: WorkflowOptions = WorkflowOptions.fromJsonString(sources.workflowOptionsJson).getOrElse(WorkflowOptions.fromJsonString("{}").get)
-//        val system = context.system
+        val system = context.system
         val ec = context.system.dispatcher
         def bruteForcePathBuilders: Future[List[PathBuilder]] = {
-//          EngineFilesystems.pathBuildersForWorkflow(bruteForceWorkflowOptions)(system)
-          Future.failed(new RuntimeException("asdf"))
+          EngineFilesystems.pathBuildersForWorkflow(bruteForceWorkflowOptions)(system)
+//          Future.failed(new RuntimeException("asdf"))
         }
 
         val (workflowOptions, pathBuilders) = stateData.workflowDescriptor match {
