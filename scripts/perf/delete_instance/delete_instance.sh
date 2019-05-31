@@ -22,4 +22,4 @@ docker run --name perf_sql_delete_gcloud_${BUILD_NUMBER} \
     gcloud \
       --verbosity info \
       --project broad-dsde-cromwell-perf \
-      compute instances delete ${CROMWELL_INSTANCE_NAME} --zone=us-central1-c"
+      compute instances delete ${CROMWELL_INSTANCE_NAME} --zone=us-central1-c -q"
