@@ -17,4 +17,6 @@ docker run --name perf_sql_delete_gcloud_${BUILD_NUMBER} \
   -e DOCKER_ETC_PATH="${DOCKER_ETC_PATH}" \
   -e CROMWELL_INSTANCE_NAME="${CROMWELL_INSTANCE_NAME}" \
   --rm \
-  google/cloud-sdk:slim /bin/bash -c "gcloud --project broad-dsde-cromwell-perf compute instances delete ${CROMWELL_INSTANCE_NAME} --zone=us-central1-c -q"
+  google/cloud-sdk:slim /bin/bash -c " \
+    echo RUNNING: gcloud --project broad-dsde-cromwell-perf compute instances delete ${CROMWELL_INSTANCE_NAME} --zone=us-central1-c -q && \
+    gcloud --project broad-dsde-cromwell-perf compute instances delete ${CROMWELL_INSTANCE_NAME} --zone=us-central1-c -q"
