@@ -27,8 +27,7 @@ esac
 export CROMWELL_SBT_TEST_EXCLUDE_TAGS
 export CROMWELL_SBT_TEST_SPAN_SCALE_FACTOR
 
+cromwell::build::setup_centaur_environment
+cromwell::build::run_centaur
+
 sbt -Dakka.test.timefactor=${CROMWELL_SBT_TEST_SPAN_SCALE_FACTOR} -Dbackend.providers.Local.config.filesystems.local.localization.0=copy coverage it:test
-
-cromwell::build::generate_code_coverage
-
-cromwell::build::publish_artifacts
