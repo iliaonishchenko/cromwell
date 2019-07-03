@@ -31,4 +31,4 @@ cromwell::build::setup_centaur_environment
 cromwell::build::assemble_jars
 cromwell::build::run_centaur
 
-sbt -Dakka.test.timefactor=${CROMWELL_SBT_TEST_SPAN_SCALE_FACTOR} -Dbackend.providers.Local.config.filesystems.local.localization.0=copy coverage it:test
+sbt -Dakka.test.timefactor=${CROMWELL_SBT_TEST_SPAN_SCALE_FACTOR} coverage it:test
